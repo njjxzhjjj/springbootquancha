@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生的列表项</title>
+    <link rel="stylesheet" href="/element-ui-2.13.2.css">
+    <script src="/vue.js"></script>
+    <script src="/element-ui-2.13.2.js"></script>
+    <script src="/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <template>
+        <el-table
+                :data="tableData"
+                style="width: 100%">
+            <el-table-column
+                    prop="actionTime"
+                    label="活动时间"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="userid"
+                    label="用户id"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="pageid"
+                    label="分页id">
+            </el-table-column>
+            <el-table-column
+                    prop="sessionid"
+                    label="作用域id">
+            </el-table-column>
+        </el-table>
+    </template>
+</div>
+
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            tableData: []
+        },
+        methods:{},
+        created:function () {
+            //页面一加载就要访问url  /student/selectAll
+            axios.get("/sessionLog/selectAll").then(res=>{
+                console.log(res)
+                //把json数组赋值给tableData
+                this.tableData=res.data.data
+            });
+        }
+    })
+</script>
+
+</body>
+</html>

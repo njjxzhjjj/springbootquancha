@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生的列表项</title>
+    <link rel="stylesheet" href="/element-ui-2.13.2.css">
+    <script src="/vue.js"></script>
+    <script src="/element-ui-2.13.2.js"></script>
+    <script src="/axios.min.js"></script>
+</head>
+<body>
+<div id="app">
+    <template>
+        <el-table
+                :data="tableData"
+                style="width: 100%">
+            <el-table-column
+                    prop="userSession"
+                    label="用户作用域"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="eventType"
+                    label="时间类型"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="categoryId"
+                    label="类别id">
+            </el-table-column>
+            <el-table-column
+                    prop="userId"
+                    label="用户id">
+            </el-table-column>
+            <el-table-column
+                    prop="productId"
+                    label="产品id">
+            </el-table-column>
+            <el-table-column
+                    prop="addressName"
+                    label="地址名字">
+            </el-table-column>
+            <el-table-column
+                    prop="eventTime"
+                    label="结束时间">
+            </el-table-column>
+        </el-table>
+    </template>
+</div>
+
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            tableData: []
+        },
+        methods:{},
+        created:function () {
+            //页面一加载就要访问url  /student/selectAll
+            axios.get("/sysLog/selectAll").then(res=>{
+                console.log(res)
+                //把json数组赋值给tableData
+                this.tableData=res.data.data
+            });
+        }
+    })
+</script>
+
+</body>
+</html>
